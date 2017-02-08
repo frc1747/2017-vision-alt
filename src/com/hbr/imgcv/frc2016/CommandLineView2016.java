@@ -21,7 +21,7 @@ public class CommandLineView2016 {
 		//frameGrabber.start("http://10.8.68.1/mjpg/video.mjpg");
 		frameGrabber.start(0, 640, 480);
 		NetworkTable.setClientMode();
-		NetworkTable.setIPAddress("10.8.68.2");
+		NetworkTable.setIPAddress("10.17.47.2");
 		NetworkTable.initialize();
 		NetworkTable sd = NetworkTable.getTable("SmartDashboard");
 		filter.setNetworkTable(sd);

@@ -60,7 +60,7 @@ public final class CollectorLiveView2016 extends LiveViewGui {
         //NetworkTable setup
                
         NetworkTable.setClientMode();
-        NetworkTable.setIPAddress("10.8.68.2");
+        NetworkTable.setIPAddress("10.17.47.2");
         NetworkTable.initialize();
         netTable = NetworkTable.getTable("SmartDashboard");
         frame.main();

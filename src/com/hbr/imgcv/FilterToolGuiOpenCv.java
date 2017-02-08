@@ -127,7 +127,7 @@ public class FilterToolGuiOpenCv {
 	/**
 	 * Last URL that was opened.
 	 */
-	private String _Url = "http://10.8.68.11/jpg/1/image.jpg";
+	private String _Url = "http://10.17.47.16/jpg/1/image.jpg";
 
 	/**
 	 * Used to save/retrieve preferences.
@@ -703,6 +703,7 @@ public class FilterToolGuiOpenCv {
 						setImage(image);
 					}
 				} catch (IOException ex) {
+					ex.printStackTrace();
 					String msg = "Failed to get image from: " + _Url;
 					JOptionPane.showMessageDialog(frame, msg, "Failed to Grab Image", JOptionPane.ERROR_MESSAGE);
 				} finally {

@@ -109,10 +109,10 @@ public class TargetFilter extends Filter implements MatFilter, TargetFilterConfi
 		
 		Mat workingImage = srcImage.clone();
 		
-		_ColorSpace.process(workingImage);
+		//_ColorSpace.process(workingImage);
 		_ColorRange.process(workingImage);
-		_Erode.process(workingImage);     
-		_Dilate.process(workingImage);
+//		_Erode.process(workingImage);     
+//		_Dilate.process(workingImage);
 //		_GrayScale.process(workingImage);
 //		_BlackWhite.process(workingImage);
 		

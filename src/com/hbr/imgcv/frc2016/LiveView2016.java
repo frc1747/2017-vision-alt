@@ -37,6 +37,8 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+import org.opencv.core.Core;
+
 import com.hbr.imgcv.LiveViewGui;
 import com.hbr.imgcv.filters.MatFilter;
 
@@ -147,6 +149,8 @@ public final class LiveView2016 extends LiveViewGui {
      */
     public static void main(String[] args) {
     	
+    	System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+    	
         // Create the GUI application, set the filter then start up the GUI
     	
         final LiveView2016 frame = new LiveView2016("2016 Vision Viewer");
@@ -154,7 +158,7 @@ public final class LiveView2016 extends LiveViewGui {
         //NetworkTable setup
                
         NetworkTable.setClientMode();
-        NetworkTable.setIPAddress("10.8.68.2");
+        NetworkTable.setIPAddress("10.17.47.2");
         NetworkTable.initialize();
         netTable = NetworkTable.getTable("SmartDashboard");
 
