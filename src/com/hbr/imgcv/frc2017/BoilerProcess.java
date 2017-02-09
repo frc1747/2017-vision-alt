@@ -9,25 +9,7 @@ import org.opencv.imgproc.Imgproc;
 
 import com.hbr.imgcv.PolygonCv;
 
-public class BoilerProcess {
-	
-	private final double EPSILON = 5.0;
-	private final double MAX_RATIO = 3.0;
-	private final double MIN_RATIO = 1.0;
-	private final double MAX_Y = 200.0;
-	private final double MIN_Y = 40.0;
-	
-	private final double RATIO_WEIGHT = 40.0;
-	private final double POSITION_WEIGHT = 30.0;
-	private final double HEIGHT_WEIGHT = 40.0;
-	private final double WIDTH_WEIGHT = 50.0;
-	private final double SIZE_WEIGHT = 6000.0; //size does matter
-	
-	private final double IDEAL_RATIO = 4.0;
-	private final double IDEAL_POSITION = 120.0;
-	private final double IDEAL_HEIGHT = 60.0;
-	private final double IDEAL_WIDTH = 120.0;
-	private final double IDEAL_SIZE = 70.0;
+public class BoilerProcess implements BoilerFilterConfig{
 	
 	public Mat analyze(Mat src){
 		Mat analysis = src.clone();
@@ -37,12 +19,12 @@ public class BoilerProcess {
 		PolygonCv currentTarget;
 		
 		for(int i = 0; i < contours.size(); i++){
-			currentTarget = PolygonCv.fromContour(contours.get(i), EPSILON);
+			currentTarget = PolygonCv.fromContour(contours.get(i), Analyze.EPSILON);
 			
-			if(MAX_RATIO > currentTarget.getBoundingAspectRatio() &&
-					currentTarget.getBoundingAspectRatio() > MIN_RATIO &&
-					!(MAX_Y > currentTarget.getMaxY()) &&
-					!(MIN_Y < currentTarget.getMinY())
+			if(Analyze.MAX_RATIO > currentTarget.getBoundingAspectRatio() &&
+					currentTarget.getBoundingAspectRatio() > Analyze.MIN_RATIO &&
+					!(Analyze.MAX_Y > currentTarget.getMaxY()) &&
+					!(Analyze.MIN_Y < currentTarget.getMinY())
 					){
 				
 				polygons.add(currentTarget);
@@ -57,11 +39,11 @@ public class BoilerProcess {
 	
 	protected double getTargetRating(PolygonCv inputTarget){
 		 double targetRating = 1000000;
-		 targetRating -= RATIO_WEIGHT * inputTarget.getBoundingAspectRatio() - IDEAL_RATIO;
-		 targetRating -= POSITION_WEIGHT * ((inputTarget.getMaxY()-inputTarget.getMinY())/2) - IDEAL_POSITION;
-		 targetRating -= HEIGHT_WEIGHT * (inputTarget.getHeight()) - IDEAL_HEIGHT;
-		 targetRating -= WIDTH_WEIGHT * (inputTarget.getWidth()) - IDEAL_WIDTH;
-		 targetRating -= SIZE_WEIGHT * (inputTarget.size()) - IDEAL_SIZE;
+		 targetRating -= Rating.RATIO_WEIGHT * inputTarget.getBoundingAspectRatio() - Rating.IDEAL_RATIO;
+		 targetRating -= Rating.POSITION_WEIGHT * ((inputTarget.getMaxY()-inputTarget.getMinY())/2) - Rating.IDEAL_POSITION;
+		 targetRating -= Rating.HEIGHT_WEIGHT * (inputTarget.getHeight()) - Rating.IDEAL_HEIGHT;
+		 targetRating -= Rating.WIDTH_WEIGHT * (inputTarget.getWidth()) - Rating.IDEAL_WIDTH;
+		 targetRating -= Rating.SIZE_WEIGHT * (inputTarget.size()) - Rating.IDEAL_SIZE;
 		 
 		return targetRating;
 	}

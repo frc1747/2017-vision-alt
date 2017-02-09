@@ -12,11 +12,32 @@ public interface BoilerFilterConfig {
 		
 	}
 	
-	interface ImageProcessing{
-		public final int[] COLOR_MIN = {138, 76, 100}; //TODO: these values are probably close, but wrong because they were not obtained from an actual target
-		public final int[] COLOR_MAX = {120, 100, 71};
+	interface ImageFiltering{
+		public final int[] COLOR_MIN = {118, 201, 70}; //TODO: these values were obtained from test images and MSPaint, need to get real data
+		public final int[] COLOR_MAX = {122, 240, 86};
 		//the original mins/maxs were in RGB and were min: {60,255,120} and max: {120,100,71}
 		public final int EROSION_SIZE = 10; //TODO: choose actual size
 		public final int DILATION_SIZE = 10; //TODO: choose actual size
+	}
+	
+	interface Analyze{
+		public final double EPSILON = 5.0;
+		public final double MAX_RATIO = 3.0;
+		public final double MIN_RATIO = 1.0;
+		public final double MAX_Y = 200.0;
+		public final double MIN_Y = 40.0;
+	}
+	
+	interface Rating{
+		public final double RATIO_WEIGHT = 40.0;
+		public final double POSITION_WEIGHT = 30.0;
+		public final double HEIGHT_WEIGHT = 40.0;
+		public final double WIDTH_WEIGHT = 50.0;
+		public final double SIZE_WEIGHT = 6000.0;
+		public final double IDEAL_RATIO = 4.0;
+		public final double IDEAL_POSITION = 120.0;
+		public final double IDEAL_HEIGHT = 60.0;
+		public final double IDEAL_WIDTH = 120.0;
+		public final double IDEAL_SIZE = 70.0;
 	}
 }

@@ -24,10 +24,10 @@ public class BoilerFilter extends Filter implements MatFilter, BoilerFilterConfi
 	private FovCalculator fov;
 	private double distance; //distance from camera to wall
 	
-	private final ColorRange colorRange = new ColorRange(ImageProcessing.COLOR_MIN, ImageProcessing.COLOR_MAX, true);
+	private final ColorRange colorRange = new ColorRange(ImageFiltering.COLOR_MIN, ImageFiltering.COLOR_MAX, true);
 	private final ColorSpace colorSpace = new ColorSpace(org.opencv.imgproc.Imgproc.COLOR_BGR2HSV);
-	private final Erode erode = new Erode(ImageProcessing.EROSION_SIZE);
-	private final Dilate dilate = new Dilate(ImageProcessing.DILATION_SIZE); //TODO: could also use better parameters than just a size
+	private final Erode erode = new Erode(ImageFiltering.EROSION_SIZE);
+	private final Dilate dilate = new Dilate(ImageFiltering.DILATION_SIZE); //TODO: could also use better parameters than just a size
 	private final GrayScale grayScale = new GrayScale();
 	private final BlackWhite blackWhite = new BlackWhite();
 	
@@ -45,7 +45,7 @@ public class BoilerFilter extends Filter implements MatFilter, BoilerFilterConfi
 	    
 		Mat outputImage = srcImage.clone();
 		
-		//colorSpace.process(outputImage);
+		colorSpace.process(outputImage);
 		//colorRange.process(outputImage);
 		erode.process(outputImage);
 		dilate.process(outputImage);
@@ -75,7 +75,7 @@ public class BoilerFilter extends Filter implements MatFilter, BoilerFilterConfi
 
 			}
 			
-			colorRange.setRanges(ImageProcessing.COLOR_MIN, ImageProcessing.COLOR_MAX, true);
+			colorRange.setRanges(ImageFiltering.COLOR_MIN, ImageFiltering.COLOR_MAX, true);
 			
 			configFileReader.close();
 			configFileBReader.close();
