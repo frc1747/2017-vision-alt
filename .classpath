@@ -8,7 +8,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/NetworkTables"/>
-	<classpathentry kind="lib" path="C:/Users/1747-Driver/opencv/build/java/opencv-2413.jar"/>
-	<classpathentry kind="lib" path="C:/Users/1747-Driver/wpilib/java/current/lib/NetworkTables.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

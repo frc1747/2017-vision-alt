@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
+import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
 import com.hbr.imgcv.PolygonCv;
@@ -28,13 +29,12 @@ public class BoilerProcess {
 	private final double IDEAL_WIDTH = 120.0;
 	private final double IDEAL_SIZE = 70.0;
 	
-	public void analyze(Mat src){
-		
+	public Mat analyze(Mat src){
+		Mat analysis = src.clone();
 		ArrayList<MatOfPoint> contours =  new ArrayList<>();
 		ArrayList<PolygonCv> polygons =  new ArrayList<>();
-		Imgproc.findContours(src, contours, new Mat(), Imgproc.RETR_LIST, Imgproc.CHAIN_APPROX_SIMPLE);
+		Imgproc.findContours(analysis, contours, new Mat(), Imgproc.RETR_LIST, Imgproc.CHAIN_APPROX_SIMPLE);
 		PolygonCv currentTarget;
-		
 		
 		for(int i = 0; i < contours.size(); i++){
 			currentTarget = PolygonCv.fromContour(contours.get(i), EPSILON);
@@ -49,7 +49,10 @@ public class BoilerProcess {
 				
 			}
 			
+			Imgproc.drawContours(src, contours, i, new Scalar(255, 255, 255), 1);
 		}
+		
+		return src;
 	}
 	
 	protected double getTargetRating(PolygonCv inputTarget){

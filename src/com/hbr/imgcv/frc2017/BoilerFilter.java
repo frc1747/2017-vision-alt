@@ -45,14 +45,14 @@ public class BoilerFilter extends Filter implements MatFilter, BoilerFilterConfi
 	    
 		Mat outputImage = srcImage.clone();
 		
-		colorSpace.process(outputImage);
-		colorRange.process(outputImage);
+		//colorSpace.process(outputImage);
+		//colorRange.process(outputImage);
 		erode.process(outputImage);
 		dilate.process(outputImage);
 		grayScale.process(outputImage);
-		blackWhite.process(outputImage);
+		//blackWhite.process(outputImage);
 		
-		(new BoilerProcess()).analyze(outputImage);
+		outputImage = (new BoilerProcess()).analyze(outputImage);
 		
 		return outputImage;
 	}
