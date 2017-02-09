@@ -13,7 +13,10 @@ public interface BoilerFilterConfig {
 	}
 	
 	interface ImageProcessing{
-		public final int[] COLOR_MIN = {60, 255, 120}; //TODO: these values are approximate and should be adjusted
-		public final int[] COLOR_MAX = {0, 180, 0}; //TODO: these values are approximate and should be adjusted
+		public final int[] COLOR_MIN = {138, 76, 100}; //TODO: these values are probably close, but wrong because they were not obtained from an actual target
+		public final int[] COLOR_MAX = {120, 100, 71};
+		//the original mins/maxs were in RGB and were min: {60,255,120} and max: {120,100,71}
+		public final int EROSION_SIZE = 0; //TODO: choose actual size
+		public final int DILATION_SIZE = 0; //TODO: choose actual size
 	}
 }

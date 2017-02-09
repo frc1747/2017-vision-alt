@@ -9,7 +9,12 @@ import java.util.List;
 import org.opencv.core.Mat;
 
 import com.hbr.imgcv.PolygonCv;
+import com.hbr.imgcv.filters.BlackWhite;
 import com.hbr.imgcv.filters.ColorRange;
+import com.hbr.imgcv.filters.ColorSpace;
+import com.hbr.imgcv.filters.Dilate;
+import com.hbr.imgcv.filters.Erode;
+import com.hbr.imgcv.filters.GrayScale;
 import com.hbr.imgcv.filters.MatFilter;
 import com.hbr.imgcv.frc2016.TargetFilterConfig.Imgproc;
 import com.hbr.imgcv.utils.FovCalculator;
@@ -20,6 +25,11 @@ public class BoilerFilter extends Filter implements MatFilter, BoilerFilterConfi
 	private double distance; //distance from camera to wall
 	
 	private final ColorRange colorRange = new ColorRange(ImageProcessing.COLOR_MIN, ImageProcessing.COLOR_MAX, true);
+	//private final ColorSpace colorSpace = new ColorSpace(org.opencv.imgproc.Imgproc.COLOR_BGR2HSV);
+	private final Erode erode = new Erode(ImageProcessing.EROSION_SIZE);
+	private final Dilate dilate = new Dilate(ImageProcessing.DILATION_SIZE); //TODO: could also use better parameters than just a size
+	private final GrayScale grayScale = new GrayScale();
+	private final BlackWhite blackWhite = new BlackWhite();
 	
 	public PolygonCv bestTarget;
 	
@@ -32,22 +42,17 @@ public class BoilerFilter extends Filter implements MatFilter, BoilerFilterConfi
 		
 		List<PolygonCv> targets  = new ArrayList<>();
 	     PolygonCv  bestTarget;
-	     
+	    
 		Mat outputImage = srcImage.clone();
 		
-		colorRange.process(outputImage);
+		//colorSpace.process(outputImage);
+		//colorRange.process(outputImage);
+		erode.process(outputImage);
+		dilate.process(outputImage);
+		grayScale.process(outputImage);
+		//blackWhite.process(outputImage);
 		
-		targets = findTargets(outputImage);
-		
-		if(targets.size() > 0) {
-        	bestTarget = findBestTarget(targets);
-        	        	
-        	if(networkTable != null) { 
-        		targetAnalysis(bestTarget); //no return as it simply writes data to netTables 
-        		networkTable.putNumber("FrameCount", frameCount++); 
-        		
-        	}
-		}
+		//(new BoilerProcess()).analyze(outputImage);
 		
 		return outputImage;
 	}

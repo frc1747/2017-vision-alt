@@ -21,10 +21,12 @@ public class HBRLiveView extends LiveViewGui{
 	static final String SHOOTER_CAMERA_ENABLED_KEY = "ShooterCameraEnabled";
     private String gameState;
 	private static final String GAME_STATE = "GameState";
+	
+	BoilerFilter filter = new BoilerFilter();
 
 	public HBRLiveView(String title) throws HeadlessException {
 		super(title);
-		//setFilter(filter);
+		setFilter(filter);
 	}
 	
 	protected void addMenuItems(){
@@ -60,7 +62,7 @@ public class HBRLiveView extends LiveViewGui{
         NetworkTable.setIPAddress("10.17.47.2");
         NetworkTable.initialize();
         networkTable = NetworkTable.getTable("SmartDashboard");
-        //frame.filter.setNetworkTable(netTable);        
+        frame.filter.setNetworkTable(networkTable);        
         frame.main();
         
         boolean lastState = false;
@@ -76,15 +78,6 @@ public class HBRLiveView extends LiveViewGui{
         		System.out.println("Camera feed toggled to: " + enable);
         	}
         	
-        	String curGameState = networkTable.getString(GAME_STATE, frame.gameState);
-        	if (!curGameState.equals(frame.gameState)) {
-        		frame.gameState = curGameState;
-        		if (curGameState.equals("auton")) {
-        			// When we enter auton start archiving 50 frames (5 frames apart)
-        			frame.enableSave("2017-hbr", 100, 5);
-        		}
-        	}
-
         	try{
         		Thread.sleep(10);
         	} catch (Exception e) {	
