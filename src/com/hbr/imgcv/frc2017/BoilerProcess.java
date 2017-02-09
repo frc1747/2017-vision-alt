@@ -20,11 +20,13 @@ public class BoilerProcess {
 	private final double POSITION_WEIGHT = 30.0;
 	private final double HEIGHT_WEIGHT = 40.0;
 	private final double WIDTH_WEIGHT = 50.0;
+	private final double SIZE_WEIGHT = 6000.0; //size does matter
 	
 	private final double IDEAL_RATIO = 4.0;
 	private final double IDEAL_POSITION = 120.0;
 	private final double IDEAL_HEIGHT = 60.0;
 	private final double IDEAL_WIDTH = 120.0;
+	private final double IDEAL_SIZE = 70.0;
 	
 	public void analyze(Mat src){
 		
@@ -56,6 +58,7 @@ public class BoilerProcess {
 		 targetRating -= POSITION_WEIGHT * ((inputTarget.getMaxY()-inputTarget.getMinY())/2) - IDEAL_POSITION;
 		 targetRating -= HEIGHT_WEIGHT * (inputTarget.getHeight()) - IDEAL_HEIGHT;
 		 targetRating -= WIDTH_WEIGHT * (inputTarget.getWidth()) - IDEAL_WIDTH;
+		 targetRating -= SIZE_WEIGHT * (inputTarget.size()) - IDEAL_SIZE;
 		 
 		return targetRating;
 	}
