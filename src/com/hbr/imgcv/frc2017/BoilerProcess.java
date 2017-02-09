@@ -11,10 +11,20 @@ import com.hbr.imgcv.PolygonCv;
 public class BoilerProcess {
 	
 	private final double EPSILON = 5.0;
-	private final double MAX_RATIO = 5.0;
-	private final double MIN_RATIO = 3.0;
+	private final double MAX_RATIO = 3.0;
+	private final double MIN_RATIO = 1.0;
 	private final double MAX_Y = 200.0;
 	private final double MIN_Y = 40.0;
+	
+	private final double RATIO_WEIGHT = 40.0;
+	private final double POSITION_WEIGHT = 30.0;
+	private final double HEIGHT_WEIGHT = 40.0;
+	private final double WIDTH_WEIGHT = 50.0;
+	
+	private final double IDEAL_RATIO = 4.0;
+	private final double IDEAL_POSITION = 120.0;
+	private final double IDEAL_HEIGHT = 60.0;
+	private final double IDEAL_WIDTH = 120.0;
 	
 	public void analyze(Mat src){
 		
@@ -31,7 +41,6 @@ public class BoilerProcess {
 					currentTarget.getBoundingAspectRatio() > MIN_RATIO &&
 					!(MAX_Y > currentTarget.getMaxY()) &&
 					!(MIN_Y < currentTarget.getMinY())
-					//currentTarget.getBoundingAspectRatio()
 					){
 				
 				polygons.add(currentTarget);
@@ -39,5 +48,15 @@ public class BoilerProcess {
 			}
 			
 		}
+	}
+	
+	protected double getTargetRating(PolygonCv inputTarget){
+		 double targetRating = 1000000;
+		 targetRating -= RATIO_WEIGHT * inputTarget.getBoundingAspectRatio() - IDEAL_RATIO;
+		 targetRating -= POSITION_WEIGHT * ((inputTarget.getMaxY()-inputTarget.getMinY())/2) - IDEAL_POSITION;
+		 targetRating -= HEIGHT_WEIGHT * (inputTarget.getHeight()) - IDEAL_HEIGHT;
+		 targetRating -= WIDTH_WEIGHT * (inputTarget.getWidth()) - IDEAL_WIDTH;
+		 
+		return targetRating;
 	}
 }
