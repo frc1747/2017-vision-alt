@@ -33,25 +33,6 @@ public class HBRLiveView extends LiveViewGui{
 		super.addMenuItems();
 	}
 	
-	/*     private Action createLoadConfigAction() {
-    	final AbstractAction loadAction = new AbstractAction("Load Configs") {
-    		
-			private static final long serialVersionUID = 1L;
-
-			public void actionPerformed(ActionEvent e) {
-    			JFileChooser loadDialog = new JFileChooser();
-    			loadDialog.setFileSelectionMode(JFileChooser.FILES_ONLY);
-    			
-    			if (loadDialog.showSaveDialog(getFrame()) == JFileChooser.APPROVE_OPTION) {
-    				File selectedFile = loadDialog.getSelectedFile();
-    				filter.setColorRangeConfig(selectedFile);
-    			}
-    		}
-    	};
-    	
-    	return loadAction;
-    }
-	 */
 	
 	public static void main(String[] args){
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
