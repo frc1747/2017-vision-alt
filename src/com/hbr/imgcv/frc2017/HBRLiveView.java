@@ -26,7 +26,7 @@ public class HBRLiveView extends LiveViewGui{
 
 	public HBRLiveView(String title) throws HeadlessException {
 		super(title);
-		setFilter(filter);
+		setFilter(filter); //this sets default filter, change if necessary
 	}
 	
 	protected void addMenuItems(){
@@ -37,7 +37,7 @@ public class HBRLiveView extends LiveViewGui{
 	public static void main(String[] args){
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		
-		final HBRLiveView frame = new HBRLiveView("Vision Viewer");
+		final HBRLiveView frame = new HBRLiveView("Live Vision");
 		
 		NetworkTable.setClientMode();
         NetworkTable.setIPAddress("10.17.47.2");
