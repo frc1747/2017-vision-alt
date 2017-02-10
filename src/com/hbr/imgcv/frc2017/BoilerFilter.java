@@ -39,14 +39,11 @@ public class BoilerFilter extends Filter implements MatFilter, BoilerFilterConfi
 	
 	@Override
 	public Mat process(Mat srcImage) {
-		
-		List<PolygonCv> targets  = new ArrayList<>();
-	     PolygonCv  bestTarget;
-	    
+
 		Mat outputImage = srcImage.clone();
 		
 		colorSpace.process(outputImage);
-		//colorRange.process(outputImage);
+		colorRange.process(outputImage);
 		erode.process(outputImage);
 		dilate.process(outputImage);
 		grayScale.process(outputImage);
@@ -60,29 +57,4 @@ public class BoilerFilter extends Filter implements MatFilter, BoilerFilterConfi
 	public void targetAnalysis(PolygonCv target){
 		
 	}
-	
-	//copied from frc2016.TargetFilter
-	public void setColorRangeConfig(File configFile) {
-		try {
-			FileReader configFileReader = new FileReader(configFile);
-			BufferedReader  configFileBReader = new BufferedReader(configFileReader);
-			
-			for(int i = 0; i < Imgproc.COLOR_MAX.length; i++) {
-				Imgproc.COLOR_MAX[i] = Integer.parseInt(configFileBReader.readLine());
-				System.out.println("Read & Set " + Imgproc.COLOR_MAX[i]);
-				Imgproc.COLOR_MIN[i] = Integer.parseInt(configFileBReader.readLine());
-				System.out.println("Read & Set " + Imgproc.COLOR_MIN[i]);
-
-			}
-			
-			colorRange.setRanges(ImageFiltering.COLOR_MIN, ImageFiltering.COLOR_MAX, true);
-			
-			configFileReader.close();
-			configFileBReader.close();
-
-		} catch (Exception ex) {
-			System.out.println(ex);
-		}
-	}
-
 }

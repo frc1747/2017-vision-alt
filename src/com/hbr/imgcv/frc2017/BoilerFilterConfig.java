@@ -13,8 +13,8 @@ public interface BoilerFilterConfig {
 	}
 	
 	interface ImageFiltering{
-		public final int[] COLOR_MIN = {118, 201, 70}; //TODO: these values were obtained from test images and MSPaint, need to get real data
-		public final int[] COLOR_MAX = {122, 240, 86};
+		public final int[] COLOR_MIN = {74, 115, 114}; //TODO: these values were obtained from test images and MSPaint, need to get real data
+		public final int[] COLOR_MAX = {109, 255, 255};
 		//the original mins/maxs were in RGB and were min: {60,255,120} and max: {120,100,71}
 		public final int EROSION_SIZE = 10; //TODO: choose actual size
 		public final int DILATION_SIZE = 10; //TODO: choose actual size
