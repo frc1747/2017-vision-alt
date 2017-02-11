@@ -13,6 +13,7 @@ public final class HBRStaticView extends FilterToolGuiOpenCv{
     protected void addControls(){
     	super.addControls();
     	super.addImageProcessingButton("Boiler Filter", new BoilerFilter());
+    	super.addImageProcessingButton("Gear Filter", new GearFilter());
     	//If we want to add buttons for filters to the sidebar, put that here
     	//Otherwise, this method can be deleted
     }

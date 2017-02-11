@@ -47,6 +47,7 @@ import com.hbr.imgcv.filters.DoNothingFilter;
 import com.hbr.imgcv.filters.GrayScale;
 import com.hbr.imgcv.filters.MatFilter;
 import com.hbr.imgcv.filters.Sequence;
+import com.hbr.imgcv.frc2017.BoilerFilter;
 
 /**
  * A base class that allows you to quickly build a test tool to exercise a
@@ -78,7 +79,7 @@ import com.hbr.imgcv.filters.Sequence;
  *
  * @author pkb
  */
-public class LiveViewGui {
+public class LiveViewGui{
 
 	/**
 	 * Current image loaded and displayed.
@@ -90,7 +91,7 @@ public class LiveViewGui {
 	 */
 	// private String _Url = "http://10.8.68.11/jpg/1/image.jpg";
 	// private String _Url = "http://admin:1234@192.168.1.25/mjpg/video.mjpg";
-	private String _Url = "rtsp://10.17.47.16:554/axis-media/media.amp?videocodec=h264";
+	private String _Url = "rtsp://10.17.47.17:554/axis-media/media.amp?videocodec=h264";
 
 	/** ID of video device to use on the system. */
 	private int _DeviceId = 0;

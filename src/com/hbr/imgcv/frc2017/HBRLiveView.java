@@ -14,6 +14,7 @@ import com.hbr.imgcv.LiveViewGui;
 import com.hbr.imgcv.frc2016.LiveView2016;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class HBRLiveView extends LiveViewGui{
 	
@@ -36,13 +37,14 @@ public class HBRLiveView extends LiveViewGui{
 	
 	public static void main(String[] args){
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-		
-		final HBRLiveView frame = new HBRLiveView("Live Vision");
-		
+				
 		NetworkTable.setClientMode();
         NetworkTable.setIPAddress("10.17.47.2");
         NetworkTable.initialize();
         networkTable = NetworkTable.getTable("SmartDashboard");
+        
+		final HBRLiveView frame = new HBRLiveView("Live Vision");
+		
         frame.filter.setNetworkTable(networkTable);        
         frame.main();
         

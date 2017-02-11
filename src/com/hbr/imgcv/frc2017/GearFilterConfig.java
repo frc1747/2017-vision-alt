@@ -1,6 +1,6 @@
 package com.hbr.imgcv.frc2017;
 
-public interface BoilerFilterConfig {
+public interface GearFilterConfig {
 
 	interface Camera {
 		public final double FOV_X_DEGREES       = 67; 
@@ -26,8 +26,6 @@ public interface BoilerFilterConfig {
 		public final double MIN_RATIO = 1.0;
 		public final double MAX_Y = 200.0;
 		public final double MIN_Y = 40.0;
-		public final double X_RANGE = 20;
-		public final double MIN_AREA = 20;
 	}
 	
 	interface Rating{

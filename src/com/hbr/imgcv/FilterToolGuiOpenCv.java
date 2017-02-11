@@ -72,6 +72,7 @@ import com.hbr.imgcv.filters.MatFilter;
 import com.hbr.imgcv.filters.Morphology;
 import com.hbr.imgcv.filters.Negative;
 import com.hbr.imgcv.filters.Sequence;
+import com.hbr.imgcv.frc2017.BoilerFilter;
 import com.hbr.imgcv.widgets.ColorRangeEditor;
 import com.hbr.imgcv.widgets.FovEditor;
 
@@ -127,7 +128,7 @@ public class FilterToolGuiOpenCv {
 	/**
 	 * Last URL that was opened.
 	 */
-	private String _Url = "http://10.17.47.16/jpg/1/image.jpg";
+	private String _Url = "http://10.17.47.17/jpg/1/image.jpg";
 
 	/**
 	 * Used to save/retrieve preferences.
@@ -1631,5 +1632,6 @@ public class FilterToolGuiOpenCv {
 	protected ColorRange getColorRange() {
 		return _ColorRange;
 	}
+	
 
 }

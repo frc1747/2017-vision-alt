@@ -1,11 +1,5 @@
 package com.hbr.imgcv.frc2017;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.opencv.core.Mat;
 
 import com.hbr.imgcv.PolygonCv;
@@ -16,10 +10,9 @@ import com.hbr.imgcv.filters.Dilate;
 import com.hbr.imgcv.filters.Erode;
 import com.hbr.imgcv.filters.GrayScale;
 import com.hbr.imgcv.filters.MatFilter;
-import com.hbr.imgcv.frc2016.TargetFilterConfig.Imgproc;
 import com.hbr.imgcv.utils.FovCalculator;
 
-public class BoilerFilter extends Filter implements MatFilter, BoilerFilterConfig{
+public class GearFilter extends Filter implements GearFilterConfig, MatFilter{
 
 	private FovCalculator fov;
 	private double distance; //distance from camera to wall
@@ -33,7 +26,7 @@ public class BoilerFilter extends Filter implements MatFilter, BoilerFilterConfi
 	
 	public PolygonCv bestTarget;
 	
-	public BoilerFilter(){
+	public GearFilter(){
 		fov = new FovCalculator(Camera.FOV_X_DEGREES, Camera.RESOLUTION_X_PIXELS, distance);
 	}
 	
@@ -49,16 +42,12 @@ public class BoilerFilter extends Filter implements MatFilter, BoilerFilterConfi
 		grayScale.process(outputImage);
 		blackWhite.process(outputImage);
 		
-		outputImage = (new BoilerProcess()).analyze(outputImage);
+		outputImage = (new GearProcess()).analyze(outputImage);
 		
 		return outputImage;
 	}
 		
 	public void targetAnalysis(PolygonCv target){
 		
-	}
-	
-	public static String getURL(){
-		return "10.17.47.16";
 	}
 }
