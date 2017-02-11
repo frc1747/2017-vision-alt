@@ -43,10 +43,10 @@ public class BoilerProcess implements BoilerFilterConfig{
 				if(Math.abs((currentTarget.getCenterX()) - 320) < Analyze.X_RANGE){
 					System.out.println("Targeted");
 					networkTable.putString("Targeted", "Targeted");
-				}else if(currentTarget.getCenterX() > 320){
+				}else if(currentTarget.getCenterX() < 320){
 					System.out.print("Turn Left");
 					networkTable.putString("Targeted", "Turn Left");
-				}else if(currentTarget.getCenterX() < 320){
+				}else if(currentTarget.getCenterX() > 320){
 					System.out.print("Turn Right");
 					networkTable.putString("Targeted", "Turn Right");
 				}

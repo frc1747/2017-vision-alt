@@ -48,10 +48,10 @@ public class GearProcess implements GearFilterConfig{
 		if(Math.abs(((targets.get(0).getCenterX()+targets.get(1).getCenterX())/2) - 320) < Analyze.X_RANGE){
 			System.out.println("Targeted");
 			networkTable.putString("Targeted", "Targeted");
-		}else if((targets.get(0).getCenterX()+targets.get(1).getCenterX())/2 > 320){
+		}else if((targets.get(0).getCenterX()+targets.get(1).getCenterX())/2 < 320){
 			System.out.print("Turn Left");
 			networkTable.putString("Targeted", "Turn Left");
-		}else if((targets.get(0).getCenterX()+targets.get(1).getCenterX())/2 < 320){
+		}else if((targets.get(0).getCenterX()+targets.get(1).getCenterX())/2 > 320){
 			System.out.print("Turn Right");
 			networkTable.putString("Targeted", "Turn Right");
 		}
