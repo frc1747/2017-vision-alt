@@ -3,7 +3,13 @@ package com.hbr.imgcv.filters;
 import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
 
-public final class OtsuFilter implements MatFilter{
+/**
+ * An image filter which applies an Otsu threshold.
+ * 
+ * @author Jon Hillery
+ *
+ */
+public final class Otsu implements MatFilter{
 
 	@Override
 	public Mat process(Mat srcImage) {

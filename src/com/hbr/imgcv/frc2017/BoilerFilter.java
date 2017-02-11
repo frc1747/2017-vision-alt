@@ -9,7 +9,7 @@ import java.util.List;
 import org.opencv.core.Mat;
 
 import com.hbr.imgcv.PolygonCv;
-import com.hbr.imgcv.filters.AlternateColorFilter;
+import com.hbr.imgcv.filters.SingleColor;
 import com.hbr.imgcv.filters.BlackWhite;
 import com.hbr.imgcv.filters.ColorRange;
 import com.hbr.imgcv.filters.ColorSpace;
@@ -17,7 +17,7 @@ import com.hbr.imgcv.filters.Dilate;
 import com.hbr.imgcv.filters.Erode;
 import com.hbr.imgcv.filters.GrayScale;
 import com.hbr.imgcv.filters.MatFilter;
-import com.hbr.imgcv.filters.OtsuFilter;
+import com.hbr.imgcv.filters.Otsu;
 import com.hbr.imgcv.frc2016.TargetFilterConfig.Imgproc;
 import com.hbr.imgcv.utils.FovCalculator;
 
@@ -32,8 +32,8 @@ public class BoilerFilter extends Filter implements MatFilter, BoilerFilterConfi
 	private final Dilate dilate = new Dilate(ImageFiltering.DILATION_SIZE); //TODO: could also use better parameters than just a size
 	private final GrayScale grayScale = new GrayScale();
 	private final BlackWhite blackWhite = new BlackWhite();
-	private final AlternateColorFilter alternateColorFilter = new AlternateColorFilter();
-	private final OtsuFilter otsu = new OtsuFilter();
+	private final SingleColor alternateColorFilter = new SingleColor(SingleColor.GREEN);
+	private final Otsu otsu = new Otsu();
 	
 	public PolygonCv bestTarget;
 	
