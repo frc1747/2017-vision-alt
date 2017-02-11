@@ -26,6 +26,8 @@ public interface GearFilterConfig {
 		public final double MIN_RATIO = 1.0;
 		public final double MAX_Y = 200.0;
 		public final double MIN_Y = 40.0;
+		public final double X_RANGE = 20;
+		public final double MIN_AREA = 20;
 	}
 	
 	interface Rating{
