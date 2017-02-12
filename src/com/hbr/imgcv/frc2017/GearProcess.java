@@ -44,16 +44,9 @@ public class GearProcess implements GearFilterConfig{
 			Imgproc.drawContours(src, contours, i, new Scalar(255, 255, 255), 1);
 		}
 		
-		if(Math.abs(((targets.get(0).getCenterX()+targets.get(1).getCenterX())/2) - 320) < Analyze.X_RANGE){
-			System.out.println("Targeted");
-			networkTable.putString("Targeted", "Targeted");
-		}else if((targets.get(0).getCenterX()+targets.get(1).getCenterX())/2 < 320){
-			System.out.print("Turn Left");
-			networkTable.putString("Targeted", "Turn Left");
-		}else if((targets.get(0).getCenterX()+targets.get(1).getCenterX())/2 > 320){
-			System.out.print("Turn Right");
-			networkTable.putString("Targeted", "Turn Right");
-		}
+		//Negative values mean turn left
+		networkTable.putNumber("Gear Targeted", targetOffset((targets.get(0).getCenterX() + targets.get(1).getCenterX())/2, Analyze.X_TARGETED_RANGE, Analyze.X_TURNING_THRESHOLD));
+		System.out.println(targetOffset((targets.get(0).getCenterX() + targets.get(1).getCenterX())/2, Analyze.X_TARGETED_RANGE, Analyze.X_TURNING_THRESHOLD));
 		
 		return src;
 	}
@@ -67,5 +60,15 @@ public class GearProcess implements GearFilterConfig{
 		 targetRating -= Rating.SIZE_WEIGHT * (inputTarget.size()) - Rating.IDEAL_SIZE;
 		 
 		return targetRating;
+	}
+	
+	private double targetOffset(double TargetCenter, double TargetedRange, double TurningThreshold){
+		if(Math.abs(TargetCenter - 320) < TargetedRange){
+			return 0;
+		}else if(Math.abs(TargetCenter - 320) > TurningThreshold){
+			return (TargetCenter-320)/Math.abs(TargetCenter - 320);
+		}else{
+			return (TargetCenter - 320)/TurningThreshold;
+		}
 	}
 }

@@ -38,7 +38,6 @@ public class BoilerProcess implements BoilerFilterConfig{
 		for(int i = 0; i < contours.size(); i++){
 			currentTarget = PolygonCv.fromContour(contours.get(i), Analyze.EPSILON);
 
-			//currently returns if targeted for each detected contour, might be fine for boiler
 			if(currentTarget.getBoundingArea() > Analyze.MIN_AREA){
 				if(largestTarget == null){
 					largestTarget = currentTarget;
@@ -50,17 +49,9 @@ public class BoilerProcess implements BoilerFilterConfig{
 			Imgproc.drawContours(src, contours, i, new Scalar(255, 255, 255), 1);
 		}
 		
-		if(Math.abs((largestTarget.getCenterX()) - 320) < Analyze.X_RANGE){
-			System.out.println("Targeted");
-			networkTable.putString("Targeted", "Targeted");
-		}else if(largestTarget.getCenterX() < 320){
-			System.out.print("Turn Left");
-			networkTable.putString("Targeted", "Turn Left");
-		}else if(largestTarget.getCenterX() > 320){
-			System.out.print("Turn Right");
-			networkTable.putString("Targeted", "Turn Right");
-		}
-		
+		//needs correction for camera offset, the method already exists, but is commented out (CameraCorrection)
+		networkTable.putNumber("Boiler Targeted", targetOffset(largestTarget.getCenterX(), Analyze.X_TARGETED_RANGE, Analyze.X_TURNING_THRESHOLD));
+		System.out.println(targetOffset(largestTarget.getCenterX(), Analyze.X_TARGETED_RANGE, Analyze.X_TURNING_THRESHOLD));
 		
 		return src;
 	}
@@ -75,4 +66,20 @@ public class BoilerProcess implements BoilerFilterConfig{
 		 
 		return targetRating;
 	}
+	
+	private double targetOffset(double TargetCenter, double TargetedRange, double TurningThreshold){
+		if(Math.abs(TargetCenter - 320) < TargetedRange){
+			return 0;
+		}else if(Math.abs(TargetCenter - 320) > TurningThreshold){
+			return (TargetCenter-320)/Math.abs(TargetCenter - 320);
+		}else{
+			return (TargetCenter - 320)/TurningThreshold;
+		}
+	}
+	
+	//returns angle that camera would return if at center of robot
+	/*private double CameraCorrection(double rawAngle, double cameraOffsetDistance, double distanceToTarget){
+		double angleDegrees = Math.toRadians(rawAngle);
+		return Math.toDegrees(Math.atan(cameraOffsetDistance/distanceToTarget + Math.tan(angleDegrees)));
+	}*/
 }
