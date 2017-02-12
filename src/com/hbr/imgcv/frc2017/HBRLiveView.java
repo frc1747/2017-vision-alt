@@ -1,28 +1,18 @@
 package com.hbr.imgcv.frc2017;
 
 import java.awt.HeadlessException;
-import java.awt.event.ActionEvent;
-import java.io.File;
-
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.JFileChooser;
 
 import org.opencv.core.Core;
 
 import com.hbr.imgcv.LiveViewGui;
-import com.hbr.imgcv.frc2016.LiveView2016;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class HBRLiveView extends LiveViewGui{
 	
 	private static NetworkTable networkTable;
 	static final String SHOOTER_CAMERA_ENABLED_KEY = "ShooterCameraEnabled";
-    private String gameState;
-	private static final String GAME_STATE = "GameState";
-	
+
 	BoilerFilter filter = new BoilerFilter();
 
 	public HBRLiveView(String title) throws HeadlessException {

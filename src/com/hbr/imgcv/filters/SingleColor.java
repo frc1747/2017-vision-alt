@@ -5,6 +5,9 @@ import org.opencv.core.Mat;
 
 /**
  * An image filter which keeps areas with high values of the specified channel.
+ * The default blue, green, and red channel values are for BGR images.
+ * 
+ * <p>The resulting image will be an 8-bit, single channel, unsigned matrix.
  * 
  * @author Jon Hillery
  *
@@ -26,15 +29,28 @@ public final class SingleColor implements MatFilter{
 	 */
 	private int filteredChannel2;
 	
-	public static int
+	public static final int
 		BLUE = 0,
 		GREEN = 1,
 		RED = 2;
-
+	
+	/**
+	 * Creates a new instance of the single color filter with the specified color kept.
+	 * @param keptChannel The channel to keep.
+	 */
 	public SingleColor(int keptChannel){
 		this.keptChannel = keptChannel;
 		filteredChannel1 = (keptChannel+1)%3;
 		filteredChannel2 = (keptChannel+2)%3;
+	}
+	
+	/**
+	 * Creates a new instance of the single color filter with channel 1 (green for BGR images) as the kept channel.
+	 */
+	public SingleColor(){
+		keptChannel = GREEN;
+		filteredChannel1 = BLUE;
+		filteredChannel2 = RED;
 	}
 	
 	@Override

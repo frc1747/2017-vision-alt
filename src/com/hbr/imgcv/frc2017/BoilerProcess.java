@@ -25,7 +25,7 @@ public class BoilerProcess implements BoilerFilterConfig{
 	public Mat analyze(Mat src){
 		Mat analysis = src.clone();
 		ArrayList<MatOfPoint> contours =  new ArrayList<>();
-		ArrayList<PolygonCv> polygons =  new ArrayList<>();
+		PolygonCv largestTarget = null;
 		Imgproc.findContours(analysis, contours, new Mat(), Imgproc.RETR_LIST, Imgproc.CHAIN_APPROX_SIMPLE);
 
 		if(contours.size() == 0){
@@ -40,20 +40,25 @@ public class BoilerProcess implements BoilerFilterConfig{
 
 			//currently returns if targeted for each detected contour, might be fine for boiler
 			if(currentTarget.getBoundingArea() > Analyze.MIN_AREA){
-				if(Math.abs((currentTarget.getCenterX()) - 320) < Analyze.X_RANGE){
-					System.out.println("Targeted");
-					networkTable.putString("Targeted", "Targeted");
-				}else if(currentTarget.getCenterX() < 320){
-					System.out.print("Turn Left");
-					networkTable.putString("Targeted", "Turn Left");
-				}else if(currentTarget.getCenterX() > 320){
-					System.out.print("Turn Right");
-					networkTable.putString("Targeted", "Turn Right");
-				}
-				
+				if(largestTarget == null){
+					largestTarget = currentTarget;
+				}else if(currentTarget.getBoundingArea() > largestTarget.getBoundingArea()){
+					largestTarget = currentTarget;
+				}				
 			}
 			
 			Imgproc.drawContours(src, contours, i, new Scalar(255, 255, 255), 1);
+		}
+		
+		if(Math.abs((largestTarget.getCenterX()) - 320) < Analyze.X_RANGE){
+			System.out.println("Targeted");
+			networkTable.putString("Targeted", "Targeted");
+		}else if(largestTarget.getCenterX() < 320){
+			System.out.print("Turn Left");
+			networkTable.putString("Targeted", "Turn Left");
+		}else if(largestTarget.getCenterX() > 320){
+			System.out.print("Turn Right");
+			networkTable.putString("Targeted", "Turn Right");
 		}
 		
 		

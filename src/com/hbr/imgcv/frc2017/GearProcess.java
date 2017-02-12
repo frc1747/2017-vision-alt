@@ -8,7 +8,6 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
 import com.hbr.imgcv.PolygonCv;
-import com.hbr.imgcv.frc2017.BoilerFilterConfig.Analyze;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 

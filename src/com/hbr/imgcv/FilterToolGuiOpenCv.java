@@ -72,7 +72,6 @@ import com.hbr.imgcv.filters.MatFilter;
 import com.hbr.imgcv.filters.Morphology;
 import com.hbr.imgcv.filters.Negative;
 import com.hbr.imgcv.filters.Sequence;
-import com.hbr.imgcv.frc2017.BoilerFilter;
 import com.hbr.imgcv.widgets.ColorRangeEditor;
 import com.hbr.imgcv.widgets.FovEditor;
 

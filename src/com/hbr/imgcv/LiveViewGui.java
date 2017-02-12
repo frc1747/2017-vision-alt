@@ -47,7 +47,6 @@ import com.hbr.imgcv.filters.DoNothingFilter;
 import com.hbr.imgcv.filters.GrayScale;
 import com.hbr.imgcv.filters.MatFilter;
 import com.hbr.imgcv.filters.Sequence;
-import com.hbr.imgcv.frc2017.BoilerFilter;
 
 /**
  * A base class that allows you to quickly build a test tool to exercise a

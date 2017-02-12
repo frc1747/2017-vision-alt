@@ -11,13 +11,7 @@ import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 
 import com.hbr.imgcv.PolygonCv;
-import com.hbr.imgcv.filters.BlackWhite;
 import com.hbr.imgcv.filters.ColorRange;
-import com.hbr.imgcv.filters.ColorSpace;
-import com.hbr.imgcv.filters.CrossHair;
-import com.hbr.imgcv.filters.Dilate;
-import com.hbr.imgcv.filters.Erode;
-import com.hbr.imgcv.filters.GrayScale;
 import com.hbr.imgcv.filters.MatFilter;
 import com.hbr.imgcv.utils.*;
 
@@ -62,7 +56,7 @@ public class TargetFilter extends Filter implements MatFilter, TargetFilterConfi
 		targetSidesIdeal  = 8;    targetSidesWeight  = 100;
 		targetRatioIdeal  = 1.5;  targetRatioWeight  = 1000;
 		targetAreaIdeal   = 5000; targetAreaWeight   = 0.03;
-		double x = (topLeft.x + bottomRight.x)/2;
+		//double x = (topLeft.x + bottomRight.x)/2;
 		lineTop = new Point(800/2 - 172 , 0);
 		lineBottom = new Point(800/2 - 20 , 599);
 		
@@ -80,14 +74,14 @@ public class TargetFilter extends Filter implements MatFilter, TargetFilterConfi
 		
 	//filter instances
 	
-	private final MatFilter _ColorSpace   = ColorSpace.createBGRtoHSV();
+	//private final MatFilter _ColorSpace   = ColorSpace.createBGRtoHSV();
 	private final ColorRange _ColorRange   = new ColorRange(Imgproc.COLOR_MIN, Imgproc.COLOR_MAX, true);
-	private final MatFilter _Erode        = new Erode(Imgproc.ERODE_FACTOR);
+	/*private final MatFilter _Erode        = new Erode(Imgproc.ERODE_FACTOR);
 	private final MatFilter _Dilate       = new Dilate(Imgproc.DILATE_FACTOR);
 	private final MatFilter _GrayScale    = new GrayScale();
 	private final MatFilter _BlackWhite   = new BlackWhite(Imgproc.BLACKWHITE_THRESH, 255, true);
 	private final MatFilter _CrossHair    = new CrossHair();
-	private final PolyArrayRender _OtherTargets = new PolyArrayRender(ScalarColors.BLUE, Render.OUTLINE_THICKNESS);
+	*/private final PolyArrayRender _OtherTargets = new PolyArrayRender(ScalarColors.BLUE, Render.OUTLINE_THICKNESS);
 	private final PolygonRender   _BestTarget   = new PolygonRender(ScalarColors.RED,  Render.OUTLINE_THICKNESS);
 	private final RectangleRender _Reticle      = new RectangleRender(ScalarColors.RED, -1); //-1 is filled
 	private final RectangleRender _BoundingBox  = new RectangleRender(ScalarColors.GREEN, Render.BOX_THICKNESS);
@@ -177,10 +171,10 @@ public class TargetFilter extends Filter implements MatFilter, TargetFilterConfi
 	}
 
 	private void targetAnalysis(PolygonCv foundTarget, boolean printToNetWorkTable) { //tells the robo info about the target
-        double offsetXDegrees, offsetXDegreesIdeal,
+        double offsetXDegrees, /*offsetXDegreesIdeal,*/
         	targetDistanceInches, baseDistanceInches, 
-        	cameraAngleElevationRadians, targetAngleRadians,
-        	targetAngleFactor; 
+        	cameraAngleElevationRadians/*, targetAngleRadians,
+        	targetAngleFactor*/; 
             	
         //calculates how far off center the target is from the center of the camera
         //offsetXDegrees = Math.atan((400 - foundTarget.getCenterX()) * Math.tan(Camera.FOV_X_RADIANS/2) / (Camera.RESOLUTION_X_PIXELS/2));
@@ -190,7 +184,7 @@ public class TargetFilter extends Filter implements MatFilter, TargetFilterConfi
     	offsetXDegrees = Math.toDegrees(offsetXDegrees);
     	
     	//used to determine size of the target in radians
-    	targetAngleFactor = 2 * Math.tan(Camera.FOV_X_RADIANS / 2) / Camera.RESOLUTION_X_PIXELS;
+    	//targetAngleFactor = 2 * Math.tan(Camera.FOV_X_RADIANS / 2) / Camera.RESOLUTION_X_PIXELS;
     	
  /*   	//gets size of target in Radians
     	targetAngleRadians = Math.atan(((Camera.RESOLUTION_X_PIXELS/2) - foundTarget.getMaxX()) * targetAngleFactor) - 
