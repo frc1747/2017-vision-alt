@@ -29,7 +29,7 @@ public interface GearFilterConfig {
 		public final double MIN_AREA = 20;
 		
 		public final double X_TARGETED_RANGE = 10;
-		public final double X_TURNING_THRESHOLD = 30;
+		public final double X_TURNING_THRESHOLD = 80;
 	}
 	
 	interface Rating{
