@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 public class BoilerProcess implements BoilerFilterConfig{
 	
 	NetworkTable networkTable;
+	static final double BALL_AREA_THRESHOLD = 20;
 	
 	public BoilerProcess(){
 		 NetworkTable.setClientMode();
@@ -27,9 +28,11 @@ public class BoilerProcess implements BoilerFilterConfig{
 		ArrayList<MatOfPoint> contours =  new ArrayList<>();
 		PolygonCv largestTarget = null;
 		Imgproc.findContours(analysis, contours, new Mat(), Imgproc.RETR_LIST, Imgproc.CHAIN_APPROX_SIMPLE);
+		
 
 		if(contours.size() == 0){
 			networkTable.putString("Targeted", "Target Not Found");
+			System.out.println("Target Not Found");
 		}
 			
 		PolygonCv currentTarget;
@@ -37,9 +40,14 @@ public class BoilerProcess implements BoilerFilterConfig{
 		
 		for(int i = 0; i < contours.size(); i++){
 			currentTarget = PolygonCv.fromContour(contours.get(i), Analyze.EPSILON);
-
+			double radius = (currentTarget.getMaxY() - currentTarget.getMinY())/2;
+			
 			if(currentTarget.getBoundingArea() > Analyze.MIN_AREA){
-				if(largestTarget == null){
+				if(currentTarget.getBoundingArea() - Math.PI * radius*radius < BALL_AREA_THRESHOLD){
+					//will hopefully eliminate balls from consideration
+					//will still display balls, though
+				}
+				else if(largestTarget == null){
 					largestTarget = currentTarget;
 				}else if(currentTarget.getBoundingArea() > largestTarget.getBoundingArea()){
 					largestTarget = currentTarget;
