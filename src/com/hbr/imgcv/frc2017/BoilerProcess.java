@@ -43,7 +43,7 @@ public class BoilerProcess implements BoilerFilterConfig{
 			double radius = (currentTarget.getMaxY() - currentTarget.getMinY())/2;
 			
 			if(currentTarget.getBoundingArea() > Analyze.MIN_AREA){
-				if(currentTarget.getBoundingArea() - Math.PI * radius*radius < BALL_AREA_THRESHOLD){
+				if(Math.abs(currentTarget.getBoundingArea() - Math.PI * radius*radius) < BALL_AREA_THRESHOLD){
 					//will hopefully eliminate balls from consideration
 					//will still display balls, though
 				}
