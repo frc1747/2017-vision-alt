@@ -55,11 +55,9 @@ public final class SingleColor implements MatFilter{
 	
 	@Override
 	public Mat process(Mat srcImage) {
-		Mat workingImage = srcImage.clone(); 
-		
-		int nchannels = workingImage.channels();
-		int nrows = workingImage.rows();
-        int ncols = workingImage.cols();
+		int nchannels = srcImage.channels();
+		int nrows = srcImage.rows();
+        int ncols = srcImage.cols();
         
         Mat outputImage = new Mat(nrows, ncols, CvType.CV_8UC1);
         
@@ -67,7 +65,7 @@ public final class SingleColor implements MatFilter{
         
         for (int row = 0; row < nrows; row++) {
         	for (int col = 0; col < ncols; col++) {
-        		workingImage.get(row, col, colors);
+        		srcImage.get(row, col, colors);
         		int keep = Byte.toUnsignedInt(colors[keptChannel]);
         		int filter1 = Byte.toUnsignedInt(colors[filteredChannel1]);
         		int filter2 = Byte.toUnsignedInt(colors[filteredChannel2]);

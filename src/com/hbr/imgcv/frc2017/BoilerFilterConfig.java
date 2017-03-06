@@ -33,6 +33,11 @@ public interface BoilerFilterConfig {
 		
 		public final double X_TARGETED_RANGE = 10;
 		public final float X_TURNING_THRESHOLD = 80;
+		public final double X_TARGET = 147;
+		
+		public final double Y_TARGETED_RANGE = 2;
+		public final double Y_MOVING_THRESHOLD = 60;
+		public final double Y_TARGET = 144; 
 	}
 	
 	interface Rating{
