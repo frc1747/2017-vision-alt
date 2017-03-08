@@ -63,10 +63,10 @@ public class BoilerProcess implements BoilerFilterConfig{
 		
 		//needs correction for camera offset, the method already exists, but is commented out (CameraCorrection)
 		//networkTable.putNumber("Test", 3.14);
-		if(!(networkTable == null)){
+		if(!(networkTable == null) && !(largestTarget == null) && contours.size() == 2){
 			networkTable.putNumber("Boiler Horizontal", targetOffset(Analyze.X_TARGET, largestTarget.getCenterX(), Analyze.X_TARGETED_RANGE, Analyze.X_TURNING_THRESHOLD, HORIZONTAL_RESOLUTION, HORIZONTAL_FOV));
 			networkTable.putNumber("Boiler Vertical", targetOffset(Analyze.Y_TARGET, largestTarget.getCenterY(), Analyze.Y_TARGETED_RANGE, Analyze.Y_MOVING_THRESHOLD, VERTICAL_RESOLUTION, VERTICAL_FOV));
-			System.out.println(targetOffset(Analyze.X_TARGET, largestTarget.getCenterX(), Analyze.X_TARGETED_RANGE, Analyze.X_TURNING_THRESHOLD, HORIZONTAL_RESOLUTION, HORIZONTAL_FOV));
+			//System.out.println(targetOffset(Analyze.X_TARGET, largestTarget.getCenterX(), Analyze.X_TARGETED_RANGE, Analyze.X_TURNING_THRESHOLD, HORIZONTAL_RESOLUTION, HORIZONTAL_FOV));
 			networkTable.putNumber("COUNTER", counter++);
 		}else{
 			System.out.println("Network Table Not Found");
