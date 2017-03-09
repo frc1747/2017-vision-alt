@@ -23,6 +23,12 @@ public class BoilerProcess implements BoilerFilterConfig{
 	static final double VERTICAL_RESOLUTION = 240;
 	static final double VERTICAL_FOV = HORIZONTAL_FOV * VERTICAL_RESOLUTION/HORIZONTAL_RESOLUTION;
 	
+	static final double CAMERA_HEIGHT_INCHES = 23/12;
+	static final double BOILER_TARGET_HEIGHT_INCHES = 7 + 2/12;
+	static final double VERTICAL_DISTANCE = BOILER_TARGET_HEIGHT_INCHES - CAMERA_HEIGHT_INCHES;
+	static final double TARGETED_OFFSET_DISTANCE_INCHES = 91.5/12;
+	static final double CAMERA_ANGLE = Math.atan(VERTICAL_DISTANCE/TARGETED_OFFSET_DISTANCE_INCHES);
+	
 	public BoilerProcess(){
 	     draw = new DrawTool();
 	}
@@ -65,9 +71,9 @@ public class BoilerProcess implements BoilerFilterConfig{
 		//networkTable.putNumber("Test", 3.14);
 		if(!(networkTable == null) && !(largestTarget == null) && contours.size() == 2){
 			networkTable.putNumber("Boiler Horizontal", targetOffset(Analyze.X_TARGET, largestTarget.getCenterX(), Analyze.X_TARGETED_RANGE, Analyze.X_TURNING_THRESHOLD, HORIZONTAL_RESOLUTION, HORIZONTAL_FOV));
-			networkTable.putNumber("Boiler Vertical", targetOffset(Analyze.Y_TARGET, largestTarget.getCenterY(), Analyze.Y_TARGETED_RANGE, Analyze.Y_MOVING_THRESHOLD, VERTICAL_RESOLUTION, VERTICAL_FOV));
+			networkTable.putNumber("Boiler Vertical", offsetDistance(-targetOffset(Analyze.Y_TARGET, largestTarget.getCenterY(), Analyze.Y_TARGETED_RANGE, Analyze.Y_MOVING_THRESHOLD, VERTICAL_RESOLUTION, VERTICAL_FOV)));
 			//System.out.println(targetOffset(Analyze.X_TARGET, largestTarget.getCenterX(), Analyze.X_TARGETED_RANGE, Analyze.X_TURNING_THRESHOLD, HORIZONTAL_RESOLUTION, HORIZONTAL_FOV));
-			networkTable.putNumber("COUNTER", counter++);
+			//networkTable.putNumber("COUNTER", counter++);
 		}else{
 			System.out.println("Network Table Not Found");
 		}
@@ -107,6 +113,18 @@ public class BoilerProcess implements BoilerFilterConfig{
 		return fov * (boilerCenter - desiredGoalLocation) / resolution;
 		//negative means turn left
 		//positive means back up
+	}
+	
+	private double offsetDistance(double offsetAngle){
+		return  Math.signum(offsetAngle) * (1/(Math.tan(CAMERA_ANGLE - offsetAngle) * VERTICAL_DISTANCE) - TARGETED_OFFSET_DISTANCE_INCHES);
+	}
+	
+	private double accurateTargetOffset(double fov, double resolution, double boilerCenter, double lensWidthMillimeters, double desiredGoalLocation){
+		double center = resolution / 2;
+		double focalLength = lensWidthMillimeters / (2 * Math.tan(fov / 2)); //lensWidthMillimeters might be able to just be resolution, should test w/ robot
+		double angleCurrentToCenter =  Math.atan((boilerCenter - center)/focalLength);
+		double angleGoalToCenter = Math.atan((center - desiredGoalLocation)/focalLength); //will need to worry about sign of this too
+		return angleCurrentToCenter - angleGoalToCenter; //might need to worry about addition vs. subtraction here
 	}
 	
 
