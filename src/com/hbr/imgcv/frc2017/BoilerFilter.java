@@ -32,7 +32,7 @@ public class BoilerFilter extends Filter implements MatFilter, BoilerFilterConfi
 		
 		outputImage = process.analyze(outputImage);
 		addRectangle(srcImage);
-		//return outputImage;
+//		return outputImage;
 		return srcImage;
 	}
 		
@@ -49,7 +49,7 @@ public class BoilerFilter extends Filter implements MatFilter, BoilerFilterConfi
     	process.setNetworkTable(nt);
     }
 	public void addRectangle(Mat src){
-		//System.out.println("running");
+		////System.out.println("running");
 		DrawTool draw = new DrawTool();
 		draw.setImage(src);
 		draw.setThickness(3);

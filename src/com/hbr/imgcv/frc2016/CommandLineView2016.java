@@ -33,7 +33,7 @@ public class CommandLineView2016 {
 			if(currentFrame != previousFrame) {
 				filter.process(frameGrabber.getLastImage());
 				previousFrame = currentFrame;
-				System.out.println(currentFrame);
+				//System.out.println(currentFrame);
 			}
 			
 			try {

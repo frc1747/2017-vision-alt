@@ -311,10 +311,10 @@ public class FindPinkRectangleFilter implements MatFilter {
 			} else if (_Debug) {
 				rejects.add(poly);
 
-				System.out.println("Rejected: sides: " + pts + " ("
-						+ poly.getWidth() + ", " + poly.getHeight()
-						+ ")  H/W: " + hw + "  distFromTop: " + distFromTop
-						+ "  distFromMid: " + distFromMid);
+				//System.out.println("Rejected: sides: " + pts + " ("
+//						+ poly.getWidth() + ", " + poly.getHeight()
+//						+ ")  H/W: " + hw + "  distFromTop: " + distFromTop
+//						+ "  distFromMid: " + distFromMid);
 			}
 		}
 
@@ -344,7 +344,7 @@ public class FindPinkRectangleFilter implements MatFilter {
 					good = p;
 				}
 				if (_Debug) {
-					System.out.println(_Finder);
+					//System.out.println(_Finder);
 				}
 			} else {
 				p.draw(output, ScalarColors.ORANGE, 1);
@@ -451,9 +451,9 @@ public class FindPinkRectangleFilter implements MatFilter {
 		// Sanity check that all values are 0 or 1
 		boolean allInRange = Core.checkRange(bboxPixels, true, 0, 2);
 		if (_Debug) {
-			System.out.println("Cutout Check: (" + wBbox + "x" + hBbox
-					+ ")  total: " + totalPixels + "  white: " + whitePixels
-					+ " (" + percentWhite + "%)  binary: " + allInRange);
+//			//System.out.println("Cutout Check: (" + wBbox + "x" + hBbox
+//					+ ")  total: " + totalPixels + "  white: " + whitePixels
+//					+ " (" + percentWhite + "%)  binary: " + allInRange);
 		}
 
 		// Found hole if none of the black/white pixels were white.

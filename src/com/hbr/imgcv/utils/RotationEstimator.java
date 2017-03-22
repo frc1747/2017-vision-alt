@@ -55,7 +55,7 @@ public class RotationEstimator {
 		// Center of robot is 9 inches to right and 12 inches back of camera
 		RotationEstimator estimator = new RotationEstimator(9, 12);
 
-		System.out.println("Dist  CamAng ActAng EstAng EstErr CamErr Better");
+		//System.out.println("Dist  CamAng ActAng EstAng EstErr CamErr Better");
 		for (int angle = -26; angle <= 26; angle += 2) {
 			for (int dist = 75; dist <= 125; dist += 25) {
 				double theta = estimator.computeRotation(angle, dist);
@@ -66,8 +66,8 @@ public class RotationEstimator {
 				double err = theta - thetaEst;
 				double camErr = theta - angle;
 				boolean better = (Math.abs(err) < Math.abs(camErr));
-				System.out.println(String.format("%5d  %5d %6.1f %6.1f  %5.1f  %5.1f   %s", dist, angle, theta,
-						thetaEst, err, camErr, better ? "yes" : "no"));
+				//System.out.println(String.format("%5d  %5d %6.1f %6.1f  %5.1f  %5.1f   %s", dist, angle, theta,
+//						thetaEst, err, camErr, better ? "yes" : "no"));
 			}
 		}
 	}

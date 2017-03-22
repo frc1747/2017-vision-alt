@@ -97,8 +97,8 @@ public final class StaticView2016 extends FilterToolGuiOpenCv {
 						Writer configFile = new FileWriter(path);
 												
 						for(int i = 0; i < maxVals.length; i++) {
-							System.out.println("Wrote " + maxVals[i]);
-							System.out.println("Wrote " + minVals[i]);
+							//System.out.println("Wrote " + maxVals[i]);
+							//System.out.println("Wrote " + minVals[i]);
 							configFile.write(Integer.toString(maxVals[i]));
 							configFile.write(System.lineSeparator());
 							configFile.write(Integer.toString(minVals[i]));
@@ -108,7 +108,7 @@ public final class StaticView2016 extends FilterToolGuiOpenCv {
 						configFile.close();
 					}
 				} catch (Exception ex) {
-					System.out.println(ex);
+					//System.out.println(ex);
 				}
 			}
 			

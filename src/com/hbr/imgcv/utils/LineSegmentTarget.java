@@ -337,8 +337,8 @@ public class LineSegmentTarget {
 	public static void main(String[] args) {
 		LineSegmentTarget lst = new LineSegmentTarget(44.1, 640, 480, 20.125);
 		lst.setTargetCoordinates(242, 243, 242, 28);
-		System.out.println(lst);
+		//System.out.println(lst);
 		lst.setTargetCoordinates(7, 243, 9, 28);
-		System.out.println(lst);
+		//System.out.println(lst);
 	}
 }

@@ -207,7 +207,7 @@ public class TargetFilter extends Filter implements MatFilter, TargetFilterConfi
     	double tta = (foundTarget.getWidth()/2) / dpx;
     	targetDistanceInches = (Target.TAPE_WIDTH_INCHES) / Math.tan(tta);
     	
-    	//System.out.println(dpx + " " + tta + " " + targetDistanceInches);
+    	////System.out.println(dpx + " " + tta + " " + targetDistanceInches);
     	
     	//gets elevation of target to camera relative to ground
     	cameraAngleElevationRadians = Math.asin((Target.TOWER_HEIGHT_INCHES - Camera.OFFSET_Y_INCHES) / targetDistanceInches);
@@ -246,10 +246,10 @@ public class TargetFilter extends Filter implements MatFilter, TargetFilterConfi
     		
     	}
     		
-    	System.out.println("Angle: " + offsetXDegrees);
+    	//System.out.println("Angle: " + offsetXDegrees);
     	    	
     	//writes calculated data to network tables
-    	System.out.println("Distance: " + baseDistanceInches);
+    	//System.out.println("Distance: " + baseDistanceInches);
     	if(printToNetWorkTable){
     	networkTable.putNumber("DistanceToBase",  baseDistanceInches);
     	networkTable.putNumber("DistanceToTarget", targetDistanceInches);  	
@@ -298,8 +298,8 @@ public class TargetFilter extends Filter implements MatFilter, TargetFilterConfi
 	  //Distance from center of rotation to goal (in)
 	  double d = Math.hypot(dr, xr);
 	  
-	  System.out.println("Real Angle: " + a * 180 / Math.PI);
-	  System.out.println("Real dist:  " + d);
+	  //System.out.println("Real Angle: " + a * 180 / Math.PI);
+	  //System.out.println("Real dist:  " + d);
 
 	  return a;
 	}
@@ -312,9 +312,9 @@ public class TargetFilter extends Filter implements MatFilter, TargetFilterConfi
 			
 			for(int i = 0; i < Imgproc.COLOR_MAX.length; i++) {
 				Imgproc.COLOR_MAX[i] = Integer.parseInt(configFileBReader.readLine());
-				System.out.println("Read & Set " + Imgproc.COLOR_MAX[i]);
+				//System.out.println("Read & Set " + Imgproc.COLOR_MAX[i]);
 				Imgproc.COLOR_MIN[i] = Integer.parseInt(configFileBReader.readLine());
-				System.out.println("Read & Set " + Imgproc.COLOR_MIN[i]);
+				//System.out.println("Read & Set " + Imgproc.COLOR_MIN[i]);
 
 			}
 			
@@ -324,7 +324,7 @@ public class TargetFilter extends Filter implements MatFilter, TargetFilterConfi
 			configFileBReader.close();
 
 		} catch (Exception ex) {
-			System.out.println(ex);
+			//System.out.println(ex);
 		}
 	}
 }

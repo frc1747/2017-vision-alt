@@ -48,7 +48,7 @@ public class HBRLiveView extends LiveViewGui{
         		} else {
                 	frame.stopVideoFeed();       			
         		}
-        		System.out.println("Camera feed toggled to: " + enable);
+        		//System.out.println("Camera feed toggled to: " + enable);
         	}
         	
         	try{

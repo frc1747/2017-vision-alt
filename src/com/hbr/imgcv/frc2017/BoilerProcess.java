@@ -23,11 +23,11 @@ public class BoilerProcess implements BoilerFilterConfig{
 	static final double VERTICAL_RESOLUTION = 240;
 	static final double VERTICAL_FOV = HORIZONTAL_FOV * VERTICAL_RESOLUTION/HORIZONTAL_RESOLUTION;
 	
-	static final double CAMERA_HEIGHT_INCHES = 23/12;
-	static final double BOILER_TARGET_HEIGHT_INCHES = 7 + 2/12;
-	static final double VERTICAL_DISTANCE = BOILER_TARGET_HEIGHT_INCHES - CAMERA_HEIGHT_INCHES;
-	static final double TARGETED_OFFSET_DISTANCE_INCHES = 91.5/12;
-	static final double CAMERA_ANGLE = Math.atan(VERTICAL_DISTANCE/TARGETED_OFFSET_DISTANCE_INCHES);
+	static final double CAMERA_HEIGHT_FEET = 23./12;
+	static final double BOILER_TARGET_HEIGHT_FEET = 7 + 2./12;
+	static final double VERTICAL_DISTANCE = BOILER_TARGET_HEIGHT_FEET - CAMERA_HEIGHT_FEET;
+	static final double TARGETED_OFFSET_DISTANCE_FEET = 91.5/12 - 2.44;
+	static final double CAMERA_ANGLE = 45;//Math.atan(VERTICAL_DISTANCE/TARGETED_OFFSET_DISTANCE_INCHES);
 	
 	public BoilerProcess(){
 	     draw = new DrawTool();
@@ -37,12 +37,13 @@ public class BoilerProcess implements BoilerFilterConfig{
 		Mat analysis = src.clone();
 		ArrayList<MatOfPoint> contours =  new ArrayList<>();
 		PolygonCv largestTarget = null;
+		PolygonCv secondLargest = null;
 		Imgproc.findContours(analysis, contours, new Mat(), Imgproc.RETR_LIST, Imgproc.CHAIN_APPROX_SIMPLE);
 		
 
 		if(contours.size() == 0){
 			//networkTable.putString("Targeted", "Target Not Found");
-			//System.out.println("Target Not Found");
+			////System.out.println("Target Not Found");
 		}
 			
 		PolygonCv currentTarget;
@@ -60,25 +61,34 @@ public class BoilerProcess implements BoilerFilterConfig{
 				else if(largestTarget == null){
 					largestTarget = currentTarget;
 				}else if(currentTarget.getBoundingArea() > largestTarget.getBoundingArea()){
+					secondLargest = largestTarget;
 					largestTarget = currentTarget;
-				}				
+				}
 			}
 			
 			Imgproc.drawContours(src, contours, i, new Scalar(255, 255, 255), 1);
 		}
 		
-		//needs correction for camera offset, the method already exists, but is commented out (CameraCorrection)
-		//networkTable.putNumber("Test", 3.14);
-		if(!(networkTable == null) && !(largestTarget == null) && contours.size() == 2){
-			networkTable.putNumber("Boiler Horizontal", targetOffset(Analyze.X_TARGET, largestTarget.getCenterX(), Analyze.X_TARGETED_RANGE, Analyze.X_TURNING_THRESHOLD, HORIZONTAL_RESOLUTION, HORIZONTAL_FOV));
-			networkTable.putNumber("Boiler Vertical", offsetDistance(-targetOffset(Analyze.Y_TARGET, largestTarget.getCenterY(), Analyze.Y_TARGETED_RANGE, Analyze.Y_MOVING_THRESHOLD, VERTICAL_RESOLUTION, VERTICAL_FOV)));
-			//System.out.println(targetOffset(Analyze.X_TARGET, largestTarget.getCenterX(), Analyze.X_TARGETED_RANGE, Analyze.X_TURNING_THRESHOLD, HORIZONTAL_RESOLUTION, HORIZONTAL_FOV));
-			//networkTable.putNumber("COUNTER", counter++);
+		PolygonCv highestTarget = null;
+		
+		if(secondLargest != null && highestTarget != null && (largestTarget.getCenterY() > secondLargest.getCenterY())){
+			highestTarget = secondLargest;
 		}else{
-			System.out.println("Network Table Not Found");
+			highestTarget = largestTarget;
 		}
 		
-		//System.out.println(targetOffset(320, largestTarget.getCenterX(), Analyze.X_TARGETED_RANGE, Analyze.X_TURNING_THRESHOLD));
+		//needs correction for camera offset, the method already exists, but is commented out (CameraCorrection)
+		//networkTable.putNumber("Test", 3.14);
+		if(!(networkTable == null) && !(highestTarget == null)){
+			networkTable.putNumber("Boiler Horizontal", targetOffset(Analyze.X_TARGET, highestTarget.getCenterX(), Analyze.X_TARGETED_RANGE, Analyze.X_TURNING_THRESHOLD, HORIZONTAL_RESOLUTION, HORIZONTAL_FOV));
+			networkTable.putNumber("Boiler Vertical", offsetDistance(-targetOffset(Analyze.Y_TARGET, highestTarget.getCenterY(), Analyze.Y_TARGETED_RANGE, Analyze.Y_MOVING_THRESHOLD, VERTICAL_RESOLUTION, VERTICAL_FOV)));
+			////System.out.println(targetOffset(Analyze.X_TARGET, largestTarget.getCenterX(), Analyze.X_TARGETED_RANGE, Analyze.X_TURNING_THRESHOLD, HORIZONTAL_RESOLUTION, HORIZONTAL_FOV));
+			//networkTable.putNumber("COUNTER", counter++);
+		}else{
+			//System.out.println("Network Table Not Found");
+		}
+		
+		////System.out.println(targetOffset(320, largestTarget.getCenterX(), Analyze.X_TARGETED_RANGE, Analyze.X_TURNING_THRESHOLD));
 		
 		return src;
 	}
@@ -104,10 +114,10 @@ public class BoilerProcess implements BoilerFilterConfig{
 		/*if(Math.abs(targetCenter - targetLocation) < targetedRange){
 			return 0;
 		}else if(Math.abs(targetCenter - targetLocation) > movingThreshold){
-			//System.out.println("Not Targeted");
+			////System.out.println("Not Targeted");
 			return (targetCenter - targetLocation)/Math.abs(targetCenter - targetLocation);
 		}else{
-			//System.out.println("Not Targeted");
+			////System.out.println("Not Targeted");
 			return (targetCenter - targetLocation)/movingThreshold;
 		}*/
 		return fov * (boilerCenter - desiredGoalLocation) / resolution;
@@ -116,7 +126,8 @@ public class BoilerProcess implements BoilerFilterConfig{
 	}
 	
 	private double offsetDistance(double offsetAngle){
-		return  Math.signum(offsetAngle) * (1/(Math.tan(CAMERA_ANGLE - offsetAngle) * VERTICAL_DISTANCE) - TARGETED_OFFSET_DISTANCE_INCHES);
+//		return  Math.signum(offsetAngle) * (1/(Math.tan(CAMERA_ANGLE - offsetAngle) * VERTICAL_DISTANCE) - TARGETED_OFFSET_DISTANCE_INCHES);
+		return -(VERTICAL_DISTANCE/Math.tan(((CAMERA_ANGLE - offsetAngle) * 2 * Math.PI)/360) - TARGETED_OFFSET_DISTANCE_FEET) / .8;
 	}
 	
 	private double accurateTargetOffset(double fov, double resolution, double boilerCenter, double lensWidthMillimeters, double desiredGoalLocation){

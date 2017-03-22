@@ -76,7 +76,7 @@ public final class CollectorLiveView2016 extends LiveViewGui {
         		} else {
                 	frame.stopVideoFeed();       			
         		}
-        		System.out.println("Camera feed toggled to: " + enable);
+        		//System.out.println("Camera feed toggled to: " + enable);
         	}
 
         	try{

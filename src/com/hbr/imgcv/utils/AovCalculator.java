@@ -99,8 +99,8 @@ public final class AovCalculator {
 		FovCalculator fc = new FovCalculator(fov, width, 100);
 		AovCalculator ac = new AovCalculator(fov, width);
 
-		System.out.println("Pixel  FOV Ang  FOV Pix  AOV Ang  AOV Pix  AngDiff");
-		System.out.println("-----  -------  -------  -------  -------  -------");
+		//System.out.println("Pixel  FOV Ang  FOV Pix  AOV Ang  AOV Pix  AngDiff");
+		//System.out.println("-----  -------  -------  -------  -------  -------");
 		for (double pixel = -(width / 2); pixel <= (width / 2); pixel += 5) {
 			double fcAng = fc.pixelFromCenterToDeg(pixel);
 			double acAng = ac.toAngle(pixel);
@@ -109,7 +109,7 @@ public final class AovCalculator {
 			double diff = (fcAng - acAng);
 			String line = String.format("%5d  %7.2f  %7.2f  %7.2f  %7.2f  %7.4f", (int) pixel, fcAng, fcPix, acAng,
 					acPix, diff);
-			System.out.println(line);
+			//System.out.println(line);
 		}
 	}
 }

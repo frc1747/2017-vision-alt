@@ -79,7 +79,7 @@ public abstract class Filter {
         
         for(int i = 0; i < contours.size(); i++) {            
         	currentTarget = PolygonCv.fromContour(contours.get(i), polygonEpsilon); 
-        	System.out.println(currentTarget.getBoundingArea());
+        	//System.out.println(currentTarget.getBoundingArea());
         	
         	if(currentTarget.getHeight()              > targetHeightMin &&
         	   currentTarget.getWidth()               > targetWidthMin  &&
@@ -206,9 +206,9 @@ public abstract class Filter {
 		// Sanity check that all values are 0 or 1
 		boolean allInRange = Core.checkRange(bboxPixels, true, 0, 2);
 		if (_Debug) {
-			System.out.println("Cutout Check: (" + wBbox + "x" + hBbox
-					+ ")  total: " + totalPixels + "  white: " + whitePixels
-					+ " (" + percentWhite + "%)  binary: " + allInRange);
+			//System.out.println("Cutout Check: (" + wBbox + "x" + hBbox
+//					+ ")  total: " + totalPixels + "  white: " + whitePixels
+//					+ " (" + percentWhite + "%)  binary: " + allInRange);
 		}
 
 		// Found hole if none of the black/white pixels were black.

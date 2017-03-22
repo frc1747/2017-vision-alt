@@ -43,7 +43,7 @@ import org.opencv.objdetect.CascadeClassifier;
 public class OpenCvDemo {
 
     public void run(String ruleFile, String imgFile) {
-        System.out.println("\nRunning DetectFaceDemo");
+        //System.out.println("\nRunning DetectFaceDemo");
 
         // Create a face detector from the rule file specified and load in the image
         CascadeClassifier faceDetector = new CascadeClassifier(ruleFile);
@@ -54,7 +54,7 @@ public class OpenCvDemo {
         MatOfRect faceDetections = new MatOfRect();
         faceDetector.detectMultiScale(image, faceDetections);
 
-        System.out.println(String.format("Detected %s faces", faceDetections.toArray().length));
+        //System.out.println(String.format("Detected %s faces", faceDetections.toArray().length));
 
         // Draw a bounding box around each face.
         for (Rect rect : faceDetections.toArray()) {
@@ -63,7 +63,7 @@ public class OpenCvDemo {
 
         // Save the visualized detection.
         String filename = "/tmp/faceDetection.png";
-        System.out.println(String.format("Writing %s", filename));
+        //System.out.println(String.format("Writing %s", filename));
         Highgui.imwrite(filename, image);
     }
 

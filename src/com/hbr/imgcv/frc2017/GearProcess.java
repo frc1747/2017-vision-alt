@@ -46,7 +46,7 @@ public class GearProcess implements GearFilterConfig{
 		
 		//Negative values mean turn left
 		networkTable.putNumber("Gear Targeted", targetOffset((targets.get(0).getCenterX() + targets.get(1).getCenterX())/2, Analyze.X_TARGETED_RANGE, Analyze.X_TURNING_THRESHOLD));
-		System.out.println(targetOffset((targets.get(0).getCenterX() + targets.get(1).getCenterX())/2, Analyze.X_TARGETED_RANGE, Analyze.X_TURNING_THRESHOLD));
+		//System.out.println(targetOffset((targets.get(0).getCenterX() + targets.get(1).getCenterX())/2, Analyze.X_TARGETED_RANGE, Analyze.X_TURNING_THRESHOLD));
 		
 		return src;
 	}

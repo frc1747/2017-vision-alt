@@ -175,7 +175,7 @@ public final class LiveView2016 extends LiveViewGui {
         		} else {
                 	frame.stopVideoFeed();       			
         		}
-        		System.out.println("Camera feed toggled to: " + enable);
+        		//System.out.println("Camera feed toggled to: " + enable);
         	}
         	
         	String curGameState = netTable.getString(GAME_STATE, frame.gameState);
