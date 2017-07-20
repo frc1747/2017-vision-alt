@@ -127,7 +127,7 @@ public class BoilerProcess implements BoilerFilterConfig{
 	
 	private double offsetDistance(double offsetAngle){
 //		return  Math.signum(offsetAngle) * (1/(Math.tan(CAMERA_ANGLE - offsetAngle) * VERTICAL_DISTANCE) - TARGETED_OFFSET_DISTANCE_INCHES);
-		return -(VERTICAL_DISTANCE/Math.tan(((CAMERA_ANGLE - offsetAngle) * 2 * Math.PI)/360) - TARGETED_OFFSET_DISTANCE_FEET) / .8;
+		return -(VERTICAL_DISTANCE/Math.tan(((CAMERA_ANGLE - offsetAngle) * 2 * Math.PI)/360) - TARGETED_OFFSET_DISTANCE_FEET) / .6; //.8
 	}
 	
 	private double accurateTargetOffset(double fov, double resolution, double boilerCenter, double lensWidthMillimeters, double desiredGoalLocation){
